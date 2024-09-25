@@ -14,7 +14,7 @@ class App {
     public function run() {
         echo "App is running. so catch it.";
     }
-    public function get(string $path) {
-        $this->router->add('GET', $path);
+    public function get(string $path, array $controller) {
+        $this->router->add('GET', $path, $controller);
     }
 }
