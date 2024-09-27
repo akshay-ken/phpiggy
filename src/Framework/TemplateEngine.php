@@ -12,6 +12,15 @@ class TemplateEngine
     public function render(string $template, array $data = [])
     {
         extract($data, EXTR_SKIP);
-        include "{$this->basePath}/{$template}";
+        ob_start(); # to store content in output buffer
+        include $this->resolve($template);
+
+        $output = ob_get_contents(); # return content from active buffer : string
+        ob_end_clean(); # turn off output buffer
+        return $output;
+    }
+    public function resolve(string $path)
+    {
+        return "{$this->basePath}/{$path}";
     }
 }
