@@ -14,6 +14,8 @@ class FlashMiddleware implements MiddlewareInterface
     {
         $this->view->addGlobal('errors', $_SESSION['errors'] ?? []);
         unset($_SESSION['errors']); // to destory errors when page refrashes.
+        $this->view->addGlobal('oldFormData', $_SESSION['oldFormData'] ?? []);
+        unset($_SESSION['oldFormData']);
         $next();
     }
 }
