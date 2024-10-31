@@ -26,4 +26,8 @@ class TransactionController
         $this->transactionService->create($_POST);
         redirectTo('/');
     }
+    public function editView(array $params)
+    {
+        dd($params);
+    }
 }
