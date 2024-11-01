@@ -27,6 +27,28 @@ class ReceiptService
             ]);
         }
 
-        dd($file);
+        $originalFileName = $file['name'];
+
+        if (!preg_match('/^[A-za-z0-9\s._-]+$/', $originalFileName)) {
+            throw new ValidationException([
+                'receipt' => ['Invalid File Name']
+            ]);
+        }
+
+        $clientMimeType = $file['type'];
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+
+        if (!in_array($clientMimeType, $allowedMimeTypes)) {
+            throw new ValidationException([
+                'receipt' => ['Invalid File Type']
+            ]);
+        }
+    }
+    public function upload(array $file)
+    {
+        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $newFilename = bin2hex(random_bytes(16)) . "." . $fileExtension;
+
+        dd($newFilename);
     }
 }
